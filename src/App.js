@@ -1,25 +1,59 @@
-import logo from './logo.svg';
-import './App.css';
+import { useEffect, useState } from "react";
+import "./App.css";
+import { Application_keys, Application_ID } from "./constants/App_Contants";
+import RecipeList from "./components/RecipeList";
 
-function App() {
+const App = () => {
+  const APP_ID = Application_ID;
+  const APP_KEY = Application_keys;
+  const [recipes, setRecipes] = useState([]);
+  const [keyword, setKeyword] = useState('');
+  const [query, setQuery] = useState('chicken');
+
+  const URL_GET = `https://api.edamam.com/search?q=${query}&app_id=${APP_ID}&app_key=${APP_KEY}`;
+
+  useEffect(() => {
+    getRecipes();
+  }, [query]);
+
+  const getRecipes = async () => {
+    const response = await fetch(URL_GET);
+    const data = await response.json();
+    console.log(data.hits);
+    setRecipes(data.hits);
+  };
+
+  const handleSearch = e => {
+    e.preventDefault();
+    setQuery(keyword);
+    setKeyword('');
+  }
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <form onSubmit={handleSearch} className="form">
+        <input
+          className="form-input"
+          placeholder="Enter to search"
+          type="text"
+          value={keyword}
+          onChange={e => setKeyword(e.target.value)}
+        />
+        <button type="submit" className="form-button btn btn-outline-info">
+          Search
+        </button>
+      </form>
+      <div className="container">
+        {recipes.map((recipe) => (
+          <RecipeList
+            title={recipe.recipe.label}
+            calories={recipe.recipe.calories}
+            image={recipe.recipe.image}
+          />
+        ))}
+      </div>
     </div>
   );
-}
+};
 
 export default App;
