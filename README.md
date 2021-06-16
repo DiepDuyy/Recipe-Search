@@ -1,5 +1,7 @@
 # API CAN GET HERE https://developer.edamam.com/
 
+Tutorial (by Dev Ed): https://www.youtube.com/watch?v=U9T6YkEDkMo&t=242s
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
