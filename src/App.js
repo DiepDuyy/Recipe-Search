@@ -13,15 +13,17 @@ const App = () => {
   const URL_GET = `https://api.edamam.com/search?q=${query}&app_id=${APP_ID}&app_key=${APP_KEY}`;
 
   useEffect(() => {
+    // getRecipes();
+    async function getRecipes() {
+      const response = await fetch(URL_GET);
+      const data = await response.json();
+      console.log(data.hits);
+      setRecipes(data.hits);
+    };
     getRecipes();
   }, [query]);
 
-  const getRecipes = async () => {
-    const response = await fetch(URL_GET);
-    const data = await response.json();
-    console.log(data.hits);
-    setRecipes(data.hits);
-  };
+  
 
   const handleSearch = e => {
     e.preventDefault();
@@ -39,19 +41,19 @@ const App = () => {
           value={keyword}
           onChange={e => setKeyword(e.target.value)}
         />
-        <button type="submit" className="form-button btn btn-outline-info">
+        <button type="submit" className="form-button btn btn-warning text-white text-uppercase">
           Search
         </button>
       </form>
-      <div className="container">
+      
         {recipes.map((recipe) => (
           <RecipeList
             title={recipe.recipe.label}
             calories={recipe.recipe.calories}
             image={recipe.recipe.image}
+            ingredients={recipe.recipe.ingredients}
           />
         ))}
-      </div>
     </div>
   );
 };

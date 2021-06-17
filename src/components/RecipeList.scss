@@ -1,5 +1,49 @@
-.card {
-    width: 400px;
-    margin: 0 10vh;
-    text-align: center;
+.container {
+    position: relative;
+    background-color: #fff;
+
+    display: grid;
+    grid-template-columns: 400px 600px;
+
+    border-radius: 10px;
+
+    img {
+        width: 400px;
+        height: 100%;
+
+        border-radius: 10px 0 0 10px;
+
+        margin-left: -15px;
+    }
+
+    .recipe_card {
+        padding: 40px 40px 0;
+
+        h1 {
+            color: #351897;
+            font-weight: bold;
+        }
+
+        ul {
+            list-style: none;
+            columns: 2;
+        }
+
+        .recipe_card__text__calories {
+            width: 100px;
+
+            margin: 20px 0 10px;
+
+            h2 {
+                margin-bottom: 5px;
+                font-size: 1rem;
+                font-weight: 400;
+                color: #818189;
+            }
+
+            .text-p {
+                color: #351897;
+            }
+        }
+    }
 }
